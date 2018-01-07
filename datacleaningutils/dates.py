@@ -4,14 +4,15 @@
 Data cleaning functions that clean up date columns
 """
 
-from datetime import datetime
+import datetime
+
 import logging
 import pandas as pd
 
 log = logging.getLogger(__name__)
 
 def convert_pd_columns_to_date(df, cols, format_precidence=["%Y-%m-%d"], errors='raise'):
-    """Add two numbers together using pandas Series.sum()
+    """Convert columns in a pandas dataframe into dates (i.e. datetime.date, not datetimes)
 
     Args:
         df: A pandas dataframe
@@ -32,46 +33,41 @@ def convert_pd_columns_to_date(df, cols, format_precidence=["%Y-%m-%d"], errors=
         cols = [cols]
 
     for c in cols:
-        df[c] = _convert_pd_column_to_date(df[c], format_precidence, errors)
-        for f in format_precidence:
-            try:
-                df[c] = pd.to_datetime(df[c], errors = errors, format=f)
-            except ValueError:
-                for r in df.iterrows():
-                    index = r[0]
-                    row = r[1]
-                    cell = row[c]
-                    try:
-                        date = datetime.strptime(cell, this_format)
-                    except ValueError:
-                        message = "Problem in row {} at index {}, value {} isn't in format {}".format(row, index, cell, this_format)
-                        raise ValueError(message)
-            df[c] = df[c].dt.date
+        df = _convert_pd_column_to_date(df, c, format_precidence, errors)
+
     return df
 
-def _convert_pd_column_to_date(col, format_precidence, errors):
+def _convert_pd_column_to_date(df, col, format_precidence, errors):
+    successfully_converted = False
     for f in format_precidence:
-            try:
-                df[c] = pd.to_datetime(df[c], errors = errors, format=f)
-            except ValueError:
-                for r in df.iterrows():
-                    index = r[0]
-                    row = r[1]
-                    cell = row[c]
-                    try:
-                        date = datetime.strptime(cell, this_format)
-                    except ValueError:
-                        message = "Problem in row {} at index {}, value {} isn't in format {}".format(row, index, cell, this_format)
-                        raise ValueError(message)
-            df[c] = df[c].dt.date
+        try:
+            df[col] = pd.to_datetime(df[col], errors=errors, format=f)
+            successfully_converted = True
+            break
+        except ValueError:
+            pass
 
+    if not successfully_converted:
+        # Find first value that couldn't be converted by any of the formats in format precident
+        for r in df.iterrows():
+            index = r[0]
+            row = r[1]
+            cell = row[col]
+            found_format = False
+            for f in format_precidence:
+                try:
+                    date = datetime.datetime.strptime(cell, f)
+                    found_format = True
+                except (ValueError, TypeError):
+                    pass
+            if not found_format:
+                message = "Problem at index {}: Value in column {} = {} isn't in formats {}"
+                message = message.format(index, col, cell, format_precidence)
+                raise ValueError(message)
 
+        raise ValueError()
+    else:
+        df[col] = df[col].dt.date
 
-df = pd.read_csv("tests/data/dates.csv")
-df
+    return df
 
-col_to_convert = "date_2"
-this_format = "%Y-%m-%d"
-df2 = convert_pd_columns_to_date(df, col_to_convert, ["%Y-%m-%d"])
-
-df2
