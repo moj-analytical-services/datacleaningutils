@@ -7,7 +7,16 @@
 
 Data cleaning utilities
 =========================
-Functions for cleaning data as part of ETL processes
+Unit tested functions for cleaning data as part of ETL processes.
 
 * Dates
    * ``convert_pd_columns_to_date`` - Attempt conversion of column(s) to ``datetime.date`` using provided ``strptime`` formats
+
+
+Contributing
+------------
+
+PRs will be accepted if:
+1. Travis is passing, which means that your unit tests should pass, and pylint shouldn't be throwing warnings or errors.
+2. Your function is appropriately unit tested
+3. Your function has a docstring in `Google format <http://sphinxcontrib-napoleon.readthedocs.io/en/latest/example_google.html>`_
