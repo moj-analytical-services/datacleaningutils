@@ -4,7 +4,7 @@ from setuptools import setup
 setup(name='datacleaningutils',
       version='0.0.1',
       description='Functions for cleaning data as part of ETL processes',
-      url='https://github.com/RobinL/python_package_template',
+      url='https://github.com/moj-analytical-services/datacleaningutils',
       author='Robin Linacre',
       author_email='robinlinacre@hotmail.com',
       license='MIT',
