@@ -8,3 +8,6 @@
 Data cleaning utilities
 =========================
 Functions for cleaning data as part of ETL processes
+
+* Dates
+   * ``convert_pd_columns_to_date`` - Attempt conversion of column(s) to ``datetime.date`` using provided ``strptime`` formats
