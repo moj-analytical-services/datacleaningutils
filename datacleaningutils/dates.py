@@ -11,7 +11,7 @@ import pandas as pd
 
 log = logging.getLogger(__name__)
 
-def convert_pd_columns_to_date(df, cols, format_precidence=["%Y-%m-%d"], errors='raise'):
+def convert_pd_columns_to_date(df, cols, format_precidence="%Y-%m-%d", errors='raise'):
     """Convert columns in a pandas dataframe into dates (i.e. datetime.date, not datetimes)
 
     Args:
@@ -56,7 +56,7 @@ def _convert_pd_column_to_date(df, col, format_precidence, errors):
             found_format = False
             for f in format_precidence:
                 try:
-                    date = datetime.datetime.strptime(cell, f)
+                    datetime.datetime.strptime(cell, f)
                     found_format = True
                 except (ValueError, TypeError):
                     pass
