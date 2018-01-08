@@ -1,7 +1,7 @@
 import numpy as np
 import pandas as pd
 import datetime
-def rough_heuristic_column_type_check(column, metadata_type):
+def rough_heuristic_column_type_check(column, metadata_type, num_checks=10):
     """
     This function is a very quick heuristic/rule of thumb that
     should check the data type of a column
@@ -13,7 +13,7 @@ def rough_heuristic_column_type_check(column, metadata_type):
     Args:
         columns: A pandas seris
         metadata_type:  The metadata type, see https://github.com/moj-analytical-services/data_engineering_utils/blob/master/dataengineeringutils/data/data_type_conversion.csv
-
+        num_checks: How many data points in the column to sample for the checks.
     Returns:
         None
 
@@ -33,7 +33,8 @@ def rough_heuristic_column_type_check(column, metadata_type):
         "date": {pd.NaT, pd.np.nan}
     }
 
-    this_column = column.sample(10, replace=True)
+    sample_size = min(num_checks, len(column))
+    this_column = column.sample(sample_size)
 
     possible_types = type_checks[metadata_type]
     possible_values = value_checks[metadata_type]
