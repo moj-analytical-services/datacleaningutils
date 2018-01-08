@@ -4,7 +4,6 @@ python:
   - nightly
 script:
   - coverage run -m unittest discover # - python -m unittest discover if we don't need coverage
-  - pylint --disable=R,C datacleaningutils/
 install:
   - pip install -r requirements.txt  # see https://stackoverflow.com/questions/14399534/reference-requirements-txt-for-the-install-requires-kwarg-in-setuptools-setup-py
   - pip install codecov
@@ -12,3 +11,4 @@ install:
   - pip install pylint
 after_success:
   - codecov
+  - pylint --disable=R,C datacleaningutils/
