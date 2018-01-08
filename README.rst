@@ -12,7 +12,7 @@ Unit tested functions for cleaning data as part of ETL processes.
 * dates
    * ``convert_pd_columns_to_date`` - Attempt conversion of column(s) to ``datetime.date`` using provided ``strptime`` formats
 * data_types
-   * ``rough_heuristic_column_type_check`` - A very quick heuristic/rule of thumb that checks the data type of a column in pandas
+   * ``rough_heuristic_pd_column_type_check`` - A very quick heuristic/rule of thumb that checks the data type of a column in pandas
 * structure
    * ``check_compatible_with_metadata`` - Checks compatibility with metadata as specified in the format in https://github.com/moj-analytical-services/data_warehouse_database_template
 

@@ -6,7 +6,7 @@ Tests
 import datetime
 import unittest
 import pandas as pd
-from datacleaningutils.data_types import rough_heuristic_column_type_check
+from datacleaningutils.data_types import rough_heuristic_pd_column_type_check
 
 class DataTypeTest(unittest.TestCase):
     """
@@ -28,11 +28,11 @@ class DataTypeTest(unittest.TestCase):
 
         df["c"] =  pd.to_datetime(df["c"]).dt.date
 
-        rough_heuristic_column_type_check(df["a"], "character")
-        rough_heuristic_column_type_check(df["b"], "int")
-        rough_heuristic_column_type_check(df["c"], "date")
-        rough_heuristic_column_type_check(df["d"], "date")
-        rough_heuristic_column_type_check(df["e"], "float")
+        rough_heuristic_pd_column_type_check(df["a"], "character")
+        rough_heuristic_pd_column_type_check(df["b"], "int")
+        rough_heuristic_pd_column_type_check(df["c"], "date")
+        rough_heuristic_pd_column_type_check(df["d"], "date")
+        rough_heuristic_pd_column_type_check(df["e"], "float")
 
 
 if __name__ == '__main__':

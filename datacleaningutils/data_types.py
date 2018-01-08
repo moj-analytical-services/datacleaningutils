@@ -1,7 +1,7 @@
 import numpy as np
 import pandas as pd
 import datetime
-def rough_heuristic_column_type_check(column, metadata_type, num_checks=10):
+def rough_heuristic_pd_column_type_check(column, metadata_type, num_checks=10):
     """
     A very quick heuristic/rule of thumb that checks the data type of a column (pandas.Series) from a pandas dataframe.
 

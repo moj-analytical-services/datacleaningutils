@@ -1,5 +1,5 @@
 from datacleaningutils.utils import read_json
-from datacleaningutils.data_types import rough_heuristic_column_type_check
+from datacleaningutils.data_types import rough_heuristic_pd_column_type_check
 
 def check_compatible_with_metadata(df, metadata_path):
     """
@@ -53,5 +53,5 @@ def check_compatible_with_metadata(df, metadata_path):
 
     # Check whether each column is of the right type
     for col in metadata_cols:
-        rough_heuristic_column_type_check(df[col], metadata_type_lookup[col])
+        rough_heuristic_pd_column_type_check(df[col], metadata_type_lookup[col])
 
