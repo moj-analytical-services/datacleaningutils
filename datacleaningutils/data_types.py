@@ -3,8 +3,7 @@ import pandas as pd
 import datetime
 def rough_heuristic_column_type_check(column, metadata_type, num_checks=10):
     """
-    This function is a very quick heuristic/rule of thumb that
-    should check the data type of a column
+    A very quick heuristic/rule of thumb that checks the data type of a column (pandas.Series) from a pandas dataframe.
 
     It will spot errors a good proportion of the time, but you will likely experience false positives and false negatives
 
