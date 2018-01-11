@@ -71,3 +71,26 @@ def _convert_pd_column_to_date(df, col, format_precidence, errors):
 
     return df
 
+def find_and_log_pd_date_parse_errors(col, format="%Y-%m-%d"):
+    """Convert columns in a pandas dataframe into dates (i.e. datetime.date, not datetimes)
+
+    Args:
+        col: A pandas series
+        format: Strftime format to try https://pandas.pydata.org/pandas-docs/stable/generated/pandas.to_datetime.html
+
+    Returns:
+        df: The dataframe with the relevant columns converted to dates
+    """
+
+    errors_set = set()
+    new_col = []
+    for cell in col:
+        try:
+            parsed = datetime.datetime.strptime(cell, format)
+            new_col.append(parsed.date())
+        except:
+            errors_set = errors_set.union([cell])
+            new_col.append("error in {}".format(cell))
+
+    for date in errors_set:
+        log.info("Failed to parse '{}' with format {}".format(date, format))
