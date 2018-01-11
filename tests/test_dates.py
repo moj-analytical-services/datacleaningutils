@@ -70,7 +70,8 @@ class DateTest(unittest.TestCase):
             df2 = convert_pd_columns_to_date(df, cols_to_convert, format_precidence)
 
     def test_find_and_log_pd_date_parse_errors_1(self):
-        dates = ['2017-01-01', '2017-13-01', '', '2017-09-01', None]
+        # dates = ['2017-01-01', '2017-13-01', '', '2017-09-01', None]
+        dates = ['2017-01-01', '2017-13-01']
         col = pd.Series(dates)
 
         with self.assertLogs(level='INFO') as cm:
