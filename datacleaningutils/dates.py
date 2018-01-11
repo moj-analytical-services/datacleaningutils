@@ -93,4 +93,4 @@ def find_and_log_pd_date_parse_errors(col, format="%Y-%m-%d"):
             new_col.append("error in {}".format(cell))
 
     for date in errors_set:
-        log.info("Failed to parse '{}' with format {}".format(date, format))
+        log.info("Failed to parse '{}' in column {} with format {}".format(date, col.name, format))
