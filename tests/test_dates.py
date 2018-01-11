@@ -6,7 +6,8 @@ Tests
 import datetime
 import unittest
 import pandas as pd
-from datacleaningutils.dates import     convert_pd_columns_to_date
+from datacleaningutils.dates import convert_pd_columns_to_date
+from datacleaningutils.dates import find_and_log_pd_date_parse_errors
 
 class DateTest(unittest.TestCase):
     """
@@ -68,9 +69,16 @@ class DateTest(unittest.TestCase):
         with self.assertRaises(ValueError):
             df2 = convert_pd_columns_to_date(df, cols_to_convert, format_precidence)
 
+    def test_find_and_log_pd_date_parse_errors_1(self):
+        dates = ['2017-01-01', '2017-13-01', '', '2017-09-01', None]
+        col = pd.Series(dates)
 
+        with self.assertLogs(level='INFO') as cm:
+            find_and_log_pd_date_parse_errors(col)
 
-
+        self.assertEqual(cm.output, ["INFO:datacleaningutils.dates:Failed to parse '' with format %Y-%m-%d",
+                                     "INFO:datacleaningutils.dates:Failed to parse 'None' with format %Y-%m-%d",
+                                     "INFO:datacleaningutils.dates:Failed to parse '2017-13-01' with format %Y-%m-%d"])
 
 
 if __name__ == '__main__':
