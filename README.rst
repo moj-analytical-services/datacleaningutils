@@ -14,7 +14,7 @@ Unit tested functions for cleaning data as part of ETL processes.
 * data_types
    * ``rough_heuristic_pd_column_type_check`` - A very quick heuristic/rule of thumb that checks the data type of a column in pandas
 * structure
-   * ``check_compatible_with_metadata`` - Checks compatibility with metadata as specified in the format in https://github.com/moj-analytical-services/data_warehouse_database_template
+   * ``check_compatible_with_metadata`` - Checks the compatibility of a pandas dataframe with metadata as specified in the format in https://github.com/moj-analytical-services/data_warehouse_database_template
 
 
 Contributing
