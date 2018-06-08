@@ -1,7 +1,7 @@
 from datacleaningutils.utils import read_json
 from datacleaningutils.data_types import rough_heuristic_pd_column_type_check
 
-def check_compatible_with_metadata(df, metadata_path):
+def check_compatible_with_metadata(df, metadata_path, ignore_partitions=False):
     """
     Check that a pandas dataframe is compatible with metadata
 
@@ -18,9 +18,15 @@ def check_compatible_with_metadata(df, metadata_path):
     """
     spec = read_json(metadata_path)
 
-    metadata_type_lookup = {v["name"]:v["type"] for v in spec["columns"]}
-    metadata_cols = [c["name"] for c in spec["columns"]]
+    if ignore_partitions:
+        metadata_type_lookup = {v["name"]:v["type"] for v in spec["columns"] if v["name"] not in spec['partitions']}
+        metadata_cols = [c["name"] for c in spec["columns"] if c["name"] not in spec['partitions']]
+    else:
+        metadata_type_lookup = {v["name"]:v["type"] for v in spec["columns"]}
+        metadata_cols = [c["name"] for c in spec["columns"]]
+    
     metadata_cols_set = set(metadata_cols)
+    
     df_cols_set = set(df.columns)
 
     # Check check all the columns exist in the right order
