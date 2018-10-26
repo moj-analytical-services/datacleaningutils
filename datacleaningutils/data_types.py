@@ -22,7 +22,7 @@ def rough_heuristic_pd_column_type_check(column, metadata_type, num_checks=10):
         "character" : {type(None), str},
         "int": {np.int64, np.float64, float},
         "float": {np.float64, float},
-        "date": {datetime.date, type(None), pd._libs.tslib.NaTType}
+        "date": {datetime.date, type(None)}  # AC removed ' ,pd._libs.tslib.NaTType} ' from line
     }
 
     value_checks = {
